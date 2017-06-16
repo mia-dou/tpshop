@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>后台管理系统</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/main.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/page.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/bootstrap-responsive.min.css">
+<style type="text/css">
+    table img{max-width: 100px;}
+</style>
+</head>
+<body>
+<include file="Common/header" />
+<!-- 右 -->
+<div class="content">
+    <div class="header">
+        <h1 class="page-title">商品列表</h1>
+    </div>
+    
+    <div class="well">
+        <!-- search button -->
+        <form class="form-search">
+            <div class="row-fluid" style="text-align: left;">
+                <div class="pull-left span4 unstyled">
+                    <p> 商品名称：<input class="input-medium" type="text"></p>
+                </div>
+            </div>
+            <button type="submit" class="btn">查找</button>
+            <a class="btn btn-primary" onclick="javascript:window.location.href='__CONTROLLER__/goods_add'">新增</a>
+        </form>
+    </div>
+    <div class="well">
+        <!-- table -->
+        <table class="table table-bordered table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>商品名称</th>
+                    <th>商品价格</th>
+                    <th>商品数量</th>
+                    <th>商品大图</th>
+                    <th>商品小图</th>
+                    <th>添加时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <foreach name="data" key="key" item="value" >
+                <tr class="success">
+                    <td>{$value.id}</td>
+                    <td><a href="__CONTROLLER__/goods_detail/id/{$value.id}">{$value.goods_name}</a></td>
+                    <td>{$value.goods_price}</td>
+                    <td>{$value.goods_number}</td>
+                    <td><img src="{$value.goods_big_img}"></td>
+                    <td><img src="{$value.goods_small_img}"></td>
+                    <!--<td>{$value.goods_create_time|date="Y-m-d H:i:s",###}</td>-->
+                    <td>{:date("Y-m-d H:i:s",$value['goods_create_time'])}</td>
+                    <td>
+                        <a href="__CONTROLLER__/goods_edit/id/{$value.id}"><i class="icon-pencil"></i></a>
+                        <a href="#myModal{$value.id}" role="button" data-toggle="modal"><i class="icon-remove"></i></a>
+                    </td>
+                </tr>
+               
+                    <div class="modal small hide fade" id="myModal{$value.id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h3 id="myModalLabel">删除</h3>
+                        </div>
+                        <div class="modal-body">
+                            <p class="error-text"><i class="icon-warning-sign modal-icon"></i>确定删除该数据吗？</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+                            <button class="btn btn-danger" data-dismiss="modal"onclick="location.href='__CONTROLLER__/goods_delete/id/{$value.id}'">删除</button>
+                        </div>
+                    </div>
+                </foreach>
+            </tbody>
+        </table>
+        <!-- pagination -->
+        <div class="meneame">
+            {$page_html}
+        </div>
+    </div>
+     
+    <!-- footer -->
+    <footer>
+        <hr>
+        <p>© 2017 <a href="javascript:void(0);" target="_blank">ADMIN</a></p>
+    </footer>
+</div>
+</body>
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="__PUBLIC__/Admin/js/jquery-1.8.1.min.js"></script>
+<script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+<!-- 日期控件 -->
+<script src="__PUBLIC__/Admin/js/calendar/WdatePicker.js"></script>
+
+</html>

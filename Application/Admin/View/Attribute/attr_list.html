@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>后台管理系统</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/main.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/bootstrap-responsive.min.css">
+</head>
+<body>
+<include file="Common/header" />
+<!-- 右 -->
+<div class="content">
+    <div class="header">
+        <h1 class="page-title">商品属性列表</h1>
+    </div>
+
+    <div class="well">
+    <a class="btn btn-primary" onclick="javascript:window.location.href='__CONTROLLER__/attr_add'">新增</a>
+        <!-- table -->
+        <table class="table table-bordered table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th>编号</th>
+                    <th>属性名称</th>
+                    <th>商品类型</th>
+                    <th>属性类型</th>
+                    <th>录入方式</th>
+                    <th>可选值</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <volist name="data" id="vol" >
+                <tr class="success">
+                    <td>{$vol.attr_id}</td>
+                    <td>{$vol.attr_name}</td>
+                    <td>{$vol.type_name}</td>
+                    <td><if condition="$vol.attr_type == 0 ">唯一属性 <elseif condition="$vol.attr_type == 1 "/>单选属性<else />复选属性</if></td>
+                    <td><if condition="$vol.attr_input_type == 0 ">输入框 <elseif condition="$vol.attr_input_type == 1 "/>下拉列表<else />多选框</if></td>
+                    <td>{$vol.attr_values}</td>
+                    <td><a href="attr_edit/id/{$vol.attr_id}" class="tablelink">编辑</a> <a href="attr_del/id/{$vol.attr_id}" class="tablelink"> 删除</a></td>
+                </tr>
+                </volist>
+            </tbody>
+        </table>
+    </div>
+    <!-- footer -->
+    <footer>
+        <hr>
+        <p>© 2017 <a href="javascript:void(0);" target="_blank">ADMIN</a></p>
+    </footer>
+</div>
+</body>
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="__PUBLIC__/Admin/js/jquery-1.8.1.min.js"></script>
+<script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+<!-- 日期控件 -->
+<script src="__PUBLIC__/Admin/js/calendar/WdatePicker.js"></script>
+</html>

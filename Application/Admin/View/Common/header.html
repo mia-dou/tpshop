@@ -1,0 +1,39 @@
+<!-- 上 -->
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <ul class="nav pull-right">
+                <li id="fat-menu" class="dropdown">
+                    <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-user icon-white"></i> {$Think.session.user.username}
+                        <i class="icon-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a tabindex="-1" href="javascript:void(0);">修改密码</a></li>
+                        <li class="divider"></li>
+                        <li><a tabindex="-1" href="__MODULE__/Login/logout">安全退出</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <a class="brand" href="__MODULE__/Index/index.html"><span class="first">后台管理系统</span></a>
+            <ul class="nav">
+                <li class="active"><a href="__MODULE__/Index/index.html">首页</a></li>
+                <li><a href="javascript:void(0);">系统管理</a></li>
+                <li><a href="__MODULE__/Auth/auth_list.html">权限管理</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- 左 -->
+<div class="sidebar-nav">
+    <volist name="Think.session.top_nav" id="top_v" key="top_k">
+    <a href="#error-menu{$top_k}" class="nav-header collapsed" data-toggle="collapse"><i class="icon-exclamation-sign"></i>{$top_v.auth_name}</a>
+    <ul id="error-menu{$top_k}" class="nav nav-list collapse">
+        <volist name="Think.session.second_nav" id="second_v" key="second_k">
+        <if condition = "$second_v.pid == $top_v.id ">
+        <li><a href="__MODULE__/{$second_v.auth_c}/{$second_v.auth_a}.html">{$second_v.auth_name}</a></li>
+        </if>
+        </volist>
+    </ul>     
+    </volist>
+</div>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Test-index</title>
+</head>
+<body>
+	Test index
+	<br>
+	模板字符串：<br>
+	__ROOT__
+	<br>
+	__APP__
+	<br>
+	__MODULE__
+	<br>
+	__PUBLIC__
+	<br>
+	<input type="button" name="" value="click">
+</body>
+<script type="text/javascript" src='__PUBLIC__/Home/js/jquery.min.js'></script>
+<script type="text/javascript">
+	$(function(){
+		$('input').click(function(){
+			a();
+		})
+		var a=function(){
+			console.log('asf');
+		}
+	})
+</script>
+</html>

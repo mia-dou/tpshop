@@ -1,0 +1,328 @@
+
+		<link href="__PUBLIC__/Home/css/cartstyle.css" rel="stylesheet" type="text/css" />
+		<link href="__PUBLIC__/Home/css/optstyle.css" rel="stylesheet" type="text/css" />
+
+		<div class="clear"></div>
+
+		<!--购物车 -->
+		<div class="concent">
+			<div id="cartTable">
+				<div class="cart-table-th">
+					<div class="wp">
+						<div class="th th-chk">
+							<div id="J_SelectAll1" class="select-all J_SelectAll">
+
+							</div>
+						</div>
+						<div class="th th-item">
+							<div class="td-inner">商品信息</div>
+						</div>
+						<div class="th th-price">
+							<div class="td-inner">单价</div>
+						</div>
+						<div class="th th-amount">
+							<div class="td-inner">数量</div>
+						</div>
+						<div class="th th-sum">
+							<div class="td-inner">金额</div>
+						</div>
+						<div class="th th-op">
+							<div class="td-inner">操作</div>
+						</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+
+				<tr class="item-list">
+					<div class="bundle  bundle-last ">
+						<div class="bundle-hd">
+							<div class="bd-promos">
+								<div class="bd-has-promo">已享优惠:<span class="bd-has-promo-content">省￥19.50</span>&nbsp;&nbsp;</div>
+								<div class="act-promo">
+									<a href="#" target="_blank">第二支半价，第三支免费<span class="gt">&gt;&gt;</span></a>
+								</div>
+								<span class="list-change theme-login">编辑</span>
+							</div>
+						</div>
+						<div class="clear"></div>
+						<div class="bundle-main">
+						<volist name="data" id="vol">
+							<ul class="item-content clearfix" goods_id="{$vol.goods_id}" goods_attr_ids="{$vol.goods_attr_ids}" cart_id="{$vol.id|default=0}">
+								<li class="td td-chk">
+									<div class="cart-checkbox ">
+										<input class="check row_check" name="items[]" value="170037950254" type="checkbox">
+										<label for="J_CheckBox_170037950254"></label>
+									</div>
+								</li>
+								<li class="td td-item">
+									<div class="item-pic">
+										<a href="#" target="_blank" data-title="{$vol.goods_name}" class="J_MakePoint" data-point="tbcart.8.12">
+											<img src="{$vol.goods_small_img}" class="itempic J_ItemImg"></a>
+									</div>
+									<div class="item-info">
+										<div class="item-basic-info">
+											<a href="#" target="_blank" title="{$vol.goods_name}" class="item-title J_MakePoint" data-point="tbcart.8.11">{$vol.goods_name}</a>
+										</div>
+									</div>
+								</li>
+								<li class="td td-info">
+									<div class="item-props item-props-can">
+										<volist name="vol.goods_attr" id="attr">
+										<span class="sku-line">{$attr.attr_name}：{$attr.attr_value} </span>
+										</volist>
+										<span tabindex="0" class="btn-edit-sku theme-login">修改</span>
+										<i class="theme-login am-icon-sort-desc"></i>
+									</div>
+								</li>
+								<li class="td td-price">
+									<div class="item-price price-promo-promo">
+										<div class="price-content">
+											<div class="price-line">
+												<em class="price-original">{$vol.goods_price}</em>
+											</div>
+											<div class="price-line">
+												<em class="J_Price price-now" tabindex="0">{$vol.goods_price}</em>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="td td-amount">
+									<div class="amount-wrapper ">
+										<div class="item-amount ">
+											<div class="sl">
+												<input class="min am-btn sub_number" name="" type="button" value="-" />
+												<input class="text_box current_number" name="" type="text" value="{$vol.number}" style="width:30px;" />
+												<input class="add am-btn add_number" name="" type="button" value="+" />
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="td td-sum">
+									<div class="td-inner">
+										<em tabindex="0" class="J_ItemSum number row_price">{$vol['goods_price'] * $vol['number']}</em>
+									</div>
+								</li>
+								<li class="td td-op">
+									<div class="td-inner">
+										<a title="移入收藏夹" class="btn-fav" href="#"> 移入收藏夹</a>
+										<a href="javascript:void(0);" data-point-url="#" class="delete"> 删除</a>
+									</div>
+								</li>
+							</ul>
+						</volist>
+						</div>
+					</div>
+				</tr>
+				<div class="clear"></div>
+			</div>
+			<div class="clear"></div>
+
+			<div class="float-bar-wrapper">
+				<div id="J_SelectAll2" class="select-all J_SelectAll">
+					<div class="cart-checkbox">
+						<input class="check-all check" name="select-all" value="true" type="checkbox">
+						<label for="J_SelectAllCbx2"></label>
+					</div>
+					<span>全选</span>
+				</div>
+				<div class="operations">
+					<a href="#" hidefocus="true" class="deleteAll">删除</a>
+					<a href="#" hidefocus="true" class="J_BatchFav">移入收藏夹</a>
+				</div>
+				<div class="float-bar-right">
+					<div class="amount-sum">
+						<span class="txt">已选商品</span>
+						<em id="J_SelectedItemsCount">0</em><span class="txt">件</span>
+						<div class="arrow-box">
+							<span class="selected-items-arrow"></span>
+							<span class="arrow"></span>
+						</div>
+					</div>
+					<div class="price-sum">
+						<span class="txt">合计:</span>
+						<strong class="price">¥<em id="J_Total">0.00</em></strong>
+					</div>
+					<div class="btn-area">
+						<a href="javascript:void(0);" id="J_Go" class="submit-btn submit-btn-disabled" aria-label="请注意如果没有选择宝贝，将无法结算">
+							<span>结&nbsp;算</span></a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<script type="text/javascript">
+			$(function(){
+
+				var changenum = function(new_number, element){
+					//分析ajax请求需要的数据  goods_id goods_attr_ids
+					var goods_id = $(element).closest('ul').attr('goods_id');
+					var goods_attr_ids = $(element).closest('ul').attr('goods_attr_ids');
+					var data = {
+						'goods_id': goods_id,
+						'goods_attr_ids': goods_attr_ids,
+						'number': new_number
+					};
+					var _this = element;
+					//发送ajax请求
+					$.ajax({
+						'url':'__CONTROLLER__/ajaxchangenum',
+						'type':'post',
+						'data': data,
+						'dataType':'json',
+						'success':function(response){
+							console.log(response);
+							if(response.code != 10000){
+								alert(response.msg);
+								return;
+							}else{
+								//先修改当前行数量
+								$(_this).closest('ul').find('.current_number').val(new_number);
+								//修改当前行总金额
+								var now_price = parseFloat($(_this).closest('ul').find('.price-now').text());
+								var row_price = now_price * new_number;
+								$(_this).closest('ul').find('.row_price').text(row_price);
+								//修改头部的购物车数量
+								$('#J_MiniCartNum').text(response.total_number);
+
+								//调用changetotal方法
+								changetotal();
+							}
+						}
+					});
+				}
+				//给 - 按钮绑定onclick事件
+				$('.sub_number').click(function(){
+					//获取当前行当前的数量
+					var current_number = parseInt($(this).closest('ul').find('.current_number').val());
+					var new_number = current_number - 1;
+					if(new_number < 1){
+						new_number = 1;
+					}
+					//调用changenum发送ajax
+					changenum(new_number, this);
+				});
+				//给 + 按钮绑定onclick事件
+				$('.add_number').click(function(){
+					//获取当前行当前的数量
+					var current_number = parseInt($(this).closest('ul').find('.current_number').val());
+					var new_number = current_number + 1;
+					if(new_number > 100){
+						new_number = 100;
+					}
+					//调用changenum发送ajax
+					changenum(new_number, this);
+				});
+				//直接输入数字，给current_number这个input绑定事件（onblur  onchange）
+				$('.current_number').change(function(){
+					//获取输入的数字
+					var new_number = parseInt($(this).val());
+					//调用changenum发送ajax
+					changenum(new_number, this);
+				});
+
+				//删除购物记录
+				$('.delete').click(function(){
+					//准备参数
+					var goods_id = $(this).closest('ul').attr('goods_id');
+					var goods_attr_ids = $(this).closest('ul').attr('goods_attr_ids');
+					var data = {
+						'goods_id':goods_id,
+						'goods_attr_ids':goods_attr_ids
+					};
+					var _this = this;
+					//发送ajax
+					$.ajax({
+						'url':'__CONTROLLER__/ajaxdelcart',
+						'type':'post',
+						'data':data,
+						'dataType':'json',
+						'success':function(response){
+							console.log(response);
+							if(response.code != 10000){
+								alert(response.msg);
+								return;
+							}else{
+								//移除当前行  $().remove();
+								$(_this).closest('ul').remove();
+								//修改头部购物车数量显示
+								$('#J_MiniCartNum').text(response.total_number);
+								//调用changetotal方法
+								changetotal();
+
+							}
+
+						}
+					});
+				});
+
+				//重新计算已选商品数 和总价格
+				var changetotal = function(){
+					//获取所有选中的 checkbox
+					var checked_checkbox = $(".row_check:checked");
+					var total_number = 0;
+					var total_price = 0;
+					//遍历，获取每一行的数量和价格
+					$.each(checked_checkbox, function(i,v){
+						//v 是document 元素对象 
+						var number = parseInt($(v).closest('ul').find('.current_number').val());
+						var row_price = parseFloat($(v).closest('ul').find('.row_price').text());
+						//累加 计算总数量和价格
+						total_number += number;
+						total_price += row_price;
+					})
+					//在页面显示 已选商品数量 和合计价格
+					$('#J_SelectedItemsCount').text(total_number);
+					$('#J_Total').text(total_price);
+				}
+
+				//给每一行的checkbox 绑定onchange事件 触发changetotal函数
+				$('.row_check').change(function(){
+					changetotal();
+					//需要判断是否所有行都选中了。
+					//获取所有行checkbox的数量
+					var checkbox_all = $('.row_check').length;
+					//获取被选中的checkbox的数量
+					var checkbox_checked = $('.row_check:checked').length;
+					if(checkbox_all == checkbox_checked){
+						//选中全选
+						$('.check-all').prop('checked', true);
+					}else{
+						//取消全选
+						$('.check-all').prop('checked', false);
+					}
+				});
+
+				//给全选checkbox 绑定onchange事件
+				$('.check-all').change(function(){
+					// var checked_value = $(this).attr('checked');
+					//获取全选checkbox的选中状态
+					var checked_value = $(this).prop('checked');
+					// console.log(checked_value);
+					//设置每一行的checkbox的选中状态和全选的状态一致
+					$('.row_check').prop('checked', checked_value)
+					//调用changetotal函数重新计算总数量和价格
+					changetotal();
+				});
+
+				//给结算绑定onclick事件
+				$('#J_Go').click(function(){
+					//获取到所有的选中的行 通过checkbox
+					var checked_checkbox = $('.row_check:checked');
+					if(checked_checkbox.length == 0 ){
+						return;
+					}
+					//遍历，获取到选中行的ul标签上cart_id属性值
+					//把所有的cart_id 拼接成 ‘1,2’形式，作为一个参数值传递到url上
+					var cart_ids = '';
+					$.each(checked_checkbox, function(i,v){
+						var cart_id = $(v).closest('ul').attr('cart_id');
+						cart_ids += cart_id + ',';
+					})
+					//去除最后的逗号
+					cart_ids = cart_ids.slice(0, -1);
+					var url = "__CONTROLLER__/flow2/cart_ids/" + cart_ids;
+					//跳转页面到url
+					location.href = url;
+				});
+			});
+		</script>

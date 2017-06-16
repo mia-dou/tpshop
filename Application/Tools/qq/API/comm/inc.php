@@ -1,0 +1,2 @@
+<?php die('forbidden'); ?>
+{"appid":"101192586","appkey":"c38f4ff55781e5d47a7e80347cebc623","callback":"http://www.hm4.com/index.php/Api/Index/qqcallback","scope":"get_user_info","errorReport":true,"storageType":"file","host":"localhost","user":"root","password":"root","database":"test"}

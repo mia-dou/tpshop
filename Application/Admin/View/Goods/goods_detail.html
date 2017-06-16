@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>后台管理系统</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<script src="__PUBLIC__/Admin/highcharts/highcharts.js"></script>
+<script src="__PUBLIC__/Admin/highcharts/modules/exporting.js"></script>
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/main.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/bootstrap-responsive.min.css">
+
+<!--Highcharts-->
+</head>
+<body>
+<include file="Common/header" />
+<!-- 右 -->
+<div class="content">
+    <div class="header">
+        <h1 class="page-title">商品详情</h1>
+    </div>
+
+    <div class="well">
+        <label>商品名称：</label>
+        <div>{$goods.goods_name}</div>
+        <label>商品价格：</label>
+        <div>{$goods.goods_price}</div>
+        <label>商品数量：</label>
+        <div>{$goods.goods_number}</div>
+        <label>商品图片：</label>
+        <div><img src="{$goods.goods_small_img}"></div>
+        <label>商品简介：</label>
+        <div>{$goods['goods_introduce']}</div>
+        <label>月销售额：</label>
+        <div id="container" style="min-width:400px;height:400px"></div>
+
+    </div>
+    <!-- footer -->
+    <footer>
+        <hr>
+        <p>© 2017 <a href="javascript:void(0);" target="_blank">ADMIN</a></p>
+    </footer>
+</div>
+</body>
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="__PUBLIC__/Admin/js/jquery-1.8.1.min.js"></script>
+<script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+<script>
+	/**
+  * Highcharts 在 4.2.0 开始已经不依赖 jQuery 了，直接用其构造函数既可创建图表
+ **/
+var chart = new Highcharts.Chart('container', {
+    title: {
+        text: '月销售额',
+        x: -20
+    },
+    subtitle: {
+        text: '数据来源:www.tpshop.com',
+        x: -20
+    },
+    xAxis: {
+        categories: ['一月', '二月', '三月', '四月', '五月']
+    },
+    yAxis: {
+        title: {
+            text: '销售额(万元) '
+        },
+        plotLines: [{
+            value: 0,
+            width: 1,
+            color: '#808080'
+        }]
+    },
+    tooltip: {
+        valueSuffix: '万元'
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle',
+        borderWidth: 0
+    },
+    series: {$data_json}
+});
+</script>
+</html>

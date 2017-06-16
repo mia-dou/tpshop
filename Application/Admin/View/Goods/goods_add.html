@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>后台管理系统</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/main.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/css/bootstrap-responsive.min.css">
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/Admin/uedit/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/Admin/uedit/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="__PUBLIC__/Admin/uedit/lang/zh-cn/zh-cn.js"></script>
+</head>
+<body>
+<include file="Common/header" />
+<!-- 右 -->
+<div class="content">
+    <div class="header">
+        <h1 class="page-title">商品新增</h1>
+    </div>
+    
+    <!-- add form -->
+    <form action="__SELF__" method="post" id="tab" enctype="multipart/form-data">
+        <ul class="nav nav-tabs">
+          <li role="presentation" class="active"><a href="#basic" data-toggle="tab">基本信息</a></li>
+          <li role="presentation"><a href="#desc" data-toggle="tab">商品描述</a></li>
+          <li role="presentation"><a href="#attr" data-toggle="tab">商品属性</a></li>
+          <li role="presentation"><a href="#pics" data-toggle="tab">商品相册</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade in active" id="basic">
+                <div class="well">
+                    <label>商品名称：</label>
+                    <input type="text" name="goods_name" value="" class="input-xlarge">
+                    <label>商品价格：</label>
+                    <input type="text" name="goods_price" value="" class="input-xlarge">
+                    <label>商品数量：</label>
+                    <input type="text" name="goods_number" value="" class="input-xlarge">
+                    <label>商品分类：</label>
+                    <select name="cate_id" class="input-xlarge">
+                        <option value="0">==请选择==</option>
+                        <volist name="category" id="vol">
+                        <option value="{$vol.id}">{$vol.cat_name}</option>
+                        </volist>
+                    </select>
+                    <label>商品logo：</label>
+                    <input type="file" name="goods_img" value="" class="input-xlarge">
+                </div>
+            </div>
+            <div class="tab-pane fade in" id="desc">
+                <div class="well">
+                    <label>商品简介：</label>
+                    <textarea id="ueditor" name="goods_introduce" style="height:350px;width:500px"></textarea>
+                </div>
+            </div>
+            <div class="tab-pane fade in" id="attr">
+                <div class="well">
+                    <label>商品分类：</label>
+                    <select name="type_id" id="type_select" class="input-xlarge">
+                        <option value="0">--请选择--</option>
+                        <volist name="type" id="vol">
+                        <option value="{$vol.type_id}">{$vol.type_name}</option>
+                        </volist>
+                    </select>
+                    <div id="attr_div">
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade in" id="pics">
+                <div class="well">
+                        <div>[<a href="javascript:void(0);" class="add">+</a>]商品图片：<input type="file" name="goods_pics[]" value="" class="input-xlarge"></div>
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit">保存</button>
+        </div>
+    </form>
+    <!-- footer -->
+    <footer>
+        <hr>
+        <p>© 2017 <a href="javascript:void(0);" target="_blank">ADMIN</a></p>
+    </footer>
+</div>
+</body>
+<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script src="__PUBLIC__/Admin/js/jquery-1.8.1.min.js"></script>
+<script src="__PUBLIC__/Admin/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('.add').click(function(){
+            var add_div = '<div>[<a href="javascript:void(0);"" class="sub">-</a>]商品图片：<input type="file" name="goods_pics[]" value="" class="input-xlarge"></div>';
+            $(this).parent().after(add_div);
+        });
+        $('.sub').live('click',function(){
+            $(this).parent().remove();
+        });
+         //给商品属性下拉列表绑定事件
+         $('#type_select').on('change', function(){            //获取当前选中的option的value  type_id的值
+            var type_id = $(this).val();
+            //如果选中的是 “==请选择==”, 则不需要发送ajax请求
+            if(type_id == 0){
+                //清除显示属性的div中的内容
+                $('#attr_div').html('');
+                return;
+            }
+            $.ajax({
+                'url':'__CONTROLLER__/getattr',
+                'type':'post',
+                'data':{'type_id':type_id},
+                'dataType':'json',
+                'success':function(response){
+                    console.log(response);
+                    //得到返回数据之后的处理
+                    if(response.code != 10000){
+                        alert(response.msg);
+                        return;
+                    }else{
+                        var attr_data = response.data;
+                        //拼接字符串形式的html代码，用来显示属性信息
+                        if(attr_data == ''){
+                            $('#attr_div').html('');
+                            return;
+                        }
+                        //要注意：不同的属性 录入方式不同， 显示的html代码也不同
+                        var str = '';
+                        $.each(attr_data, function(i, v){
+                            //根据不同的录入方式生成不同的代码
+                            str += "<label>" + v.attr_name + "</label>";
+                            if(v.attr_input_type == 0){
+                                //输入框
+                                // str += "<label>" + v.attr_name + "</label>";
+                                str += "<input type='text' name='attr_name[" + v.attr_id + "][]' class='input-xlarge'>";
+                            }else if(v.attr_input_type == 1){
+                                //下拉列表
+                                str += "<select name='attr_name[" + v.attr_id + "][]'>";
+                                //拼接option标签代码
+                                $.each(v.attr_values.split(','), function(index, value){
+                                    str += "<option value='" + value + "'>" + value + "</option>"
+                                });
+                                str += "</select>";
+                            }else{
+                                //多选框
+                                $.each(v.attr_values.split(','), function(index, value){
+                                    str += "<input type='checkbox' value='" + value + "' name='attr_name[" + v.attr_id + "][]'>" + value;
+                                });
+                            }
+                            // console.log(response);
+                            //html代码拼接完成，需要显示到页面
+                            $('#attr_div').html(str);
+                        });
+                    }
+                }
+            });
+        });
+    });
+    var ue=UE.getEditor('ueditor');
+</script>
+</html>
